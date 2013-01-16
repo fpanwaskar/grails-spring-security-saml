@@ -46,3 +46,4 @@ grails.doc.title = 'Spring Security SAML Plugin'
 								
 grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
+

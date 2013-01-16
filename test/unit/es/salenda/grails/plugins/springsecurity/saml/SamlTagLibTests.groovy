@@ -55,6 +55,15 @@ class SamlTagLibTests {
 	}
 
 	@Test
+	void logouLinkShouldDefaultToCoreLogoutUrlWithLocal() {
+		mockConfig(false)
+
+		def expectedLink = "<a href=\'${SamlTagLib.LOGOUT_SLUG}?local=true\'>Logout</a>"
+		assert applyTemplate('<sec:logoutLink local="true">Logout</sec:logoutLink>') == expectedLink
+	}
+
+
+	@Test
 	void logoutLinkShouldSetBody() {
 		mockConfig()
 		def body = "Logout here"

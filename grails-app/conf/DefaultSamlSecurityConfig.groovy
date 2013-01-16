@@ -1,12 +1,15 @@
 security {
 	saml {
+		userAttributeMappings = [:]
 		active = true
 		afterLoginUrl = '/'
 		afterLogoutUrl = '/'
 		userGroupAttribute = "memberOf"
+		responseSkew = 60
 		autoCreate {
 			active =  false
 			key = 'username'
+			assignAuthorities = true
 		}
 		metadata {
 			defaultIdp = 'ping'

@@ -71,7 +71,7 @@ class SamlTagLib extends SecurityTagLib {
 
 		def samlEnabled = grailsApplication.config.grails.plugins.springsecurity.saml.active
 		if(samlEnabled){
-			url = SAMLLogoutFilter.DEFAULT_FILTER_URL
+			url = SAMLLogoutFilter.FILTER_URL
 		}
 
 		def elementClass = generateClassAttribute(attrs)

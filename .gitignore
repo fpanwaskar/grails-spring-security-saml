@@ -13,3 +13,6 @@ web-app/
 *.iws
 *.ipr
 *.iml
+.idea
+/grails-app/conf/mavenInfo.groovy
+cobertura.ser

@@ -15,6 +15,7 @@ class UnitTestUtils {
 	static final JOIN_CLASS_NAME = 'test.TestUserRole'
 	
 	static final USERNAME_ATTR_NAME = 'usernameAttribute'
+	static final AUTHORITIES_PROPERTY_NAME= 'authorities'
 	static final GROUP_ATTR_NAME = 'groups'
 	static final MAIL_ATTR_NAME = 'mail'
 	static final FIRSTNAME_ATTR_NAME = 'firstname'

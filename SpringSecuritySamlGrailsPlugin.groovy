@@ -49,7 +49,7 @@ import org.apache.commons.httpclient.HttpClient
 
 class SpringSecuritySamlGrailsPlugin {
     // the plugin version
-    def version = "1.0.0.M17"
+    def version = "1.0.0.M17-SNAPSHOT"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3 > *"
     // the other plugins this plugin depends on
@@ -135,7 +135,7 @@ SAML 2.x support for the Spring Security Plugin
 		
 		def idpSelectionPath = conf.saml.entryPoint.idpSelectionPath
 		samlEntryPoint(SAMLEntryPoint) {
-			filterSuffix = conf.auth.loginFormUrl 						// '/saml/login'
+			filterProcessesUrl = conf.auth.loginFormUrl 						// '/saml/login'
 			if (idpSelectionPath) {
 				idpSelectionPath = idpSelectionPath 					// '/index.gsp'
 			}
@@ -147,7 +147,7 @@ SAML 2.x support for the Spring Security Plugin
 		}
 		
 		metadataFilter(MetadataDisplayFilter) {
-			filterSuffix = conf.saml.metadata.url 						// '/saml/metadata'
+			filterProcessesUrl = conf.saml.metadata.url 						// '/saml/metadata'
 		}
 		
 		metadataGenerator(MetadataGenerator)
@@ -182,7 +182,8 @@ SAML 2.x support for the Spring Security Plugin
 					spMetadataProviderBean.constructorArgs = [spResource.getFile()]
 					parserPool = ref('parserPool')
 				}
-				
+
+				//TODO consider adding idp discovery default
 				spMetadataDefaults(ExtendedMetadata) { extMetadata ->
 					local = defaultSpConfig."local"
 					alias = defaultSpConfig."alias"
@@ -220,15 +221,19 @@ SAML 2.x support for the Spring Security Plugin
 			authorityJoinClassName = conf.userLookup.authorityJoinClassName
 			authorityNameField = conf.authority.nameField
 			samlAutoCreateActive = conf.saml.autoCreate.active
+			samlAutoAssignAuthorities = conf.saml.autoCreate.assignAuthorities
 			samlAutoCreateKey = conf.saml.autoCreate.key
 			samlUserAttributeMappings = conf.saml.userAttributeMappings
 			samlUserGroupAttribute = conf.saml.userGroupAttribute
 			samlUserGroupToRoleMapping = conf.saml.userGroupToRoleMapping
 			userDomainClassName = conf.userLookup.userDomainClassName
+			authoritiesPropertyName = conf.userLookup.authoritiesPropertyName
+
 		}
 		
 		samlAuthenticationProvider(GrailsSAMLAuthenticationProvider) {
 			userDetails = ref('userDetailsService')
+			hokConsumer = ref('webSSOprofileConsumer')
 		}
 		
 		contextProvider(SAMLContextProviderImpl)
@@ -264,7 +269,9 @@ SAML 2.x support for the Spring Security Plugin
 		samlLogoutProcessingFilter(SAMLLogoutProcessingFilter, 
 			ref('successLogoutHandler'), ref('logoutHandler'))
 		
-		webSSOprofileConsumer(WebSSOProfileConsumerImpl)
+		webSSOprofileConsumer(WebSSOProfileConsumerImpl){
+			responseSkew = conf.saml.responseSkew
+		}
 		
 		webSSOprofile(WebSSOProfileImpl)
 		

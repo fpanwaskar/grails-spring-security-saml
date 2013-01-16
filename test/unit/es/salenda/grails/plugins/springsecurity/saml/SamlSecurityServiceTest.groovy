@@ -17,9 +17,11 @@ import test.TestSamlUser
 class SamlSecurityServiceTest {
 
 	def grailsUser, authToken
+	def service
 
 	@Before
 	public void init() {
+		service = new SamlSecurityService()
 		grailsUser = new GrailsUser('username', 'password', true, true, true, true, [], 1)
 
 		authToken = new UsernamePasswordAuthenticationToken(grailsUser.username, null)
