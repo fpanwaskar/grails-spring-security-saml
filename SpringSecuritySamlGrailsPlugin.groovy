@@ -111,7 +111,6 @@ SAML 2.x support for the Spring Security Plugin
 		context.'component-scan'('base-package': "org.springframework.security.saml")
 		
 		SpringSecurityUtils.registerProvider 'samlAuthenticationProvider'
-		SpringSecurityUtils.registerLogoutHandler 'successLogoutHandler'
 		SpringSecurityUtils.registerLogoutHandler 'logoutHandler'
 		SpringSecurityUtils.registerFilter 'samlEntryPoint', SecurityFilterPosition.SECURITY_CONTEXT_FILTER.order + 1
 		SpringSecurityUtils.registerFilter 'metadataFilter', SecurityFilterPosition.SECURITY_CONTEXT_FILTER.order + 2
